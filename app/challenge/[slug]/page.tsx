@@ -8,20 +8,8 @@ import * as questions from "@/data/azure_mcq_questions_fully_updated.json";
 import { cn } from "@/lib/utils";
 const font = Smooch_Sans({ subsets: ["latin"] });
 
-interface Question {
-  id: number;
-  question: string;
-  options: string[];
-  correctAnswer: string;
-  explanation: string;
-}
-
-interface QuizProps {
-  questions: Question[];
-  countUp?: boolean; // Determines whether timer counts up or down
-}
-
-const QuizPage: React.FC<QuizProps> = ({ countUp = true }) => {
+const QuizPage = () => {
+  const [countUp] = useState(true);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<{ [key: number]: string }>({});
   const [submitted, setSubmitted] = useState(false);
