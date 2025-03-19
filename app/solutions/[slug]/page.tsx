@@ -2,10 +2,11 @@
 import { useSearchParams, useRouter } from "next/navigation";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import * as questions from "@/data/azure_mcq_questions_fully_updated.json";
+import * as questions from "@/data/mcq.json";
 import { Smooch_Sans } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { useMemo } from "react";
+import Header from "@/components/Header";
 const font = Smooch_Sans({ subsets: ["latin"] });
 
 const SolutionsPage = () => {
@@ -15,7 +16,7 @@ const SolutionsPage = () => {
 
   const parsedAnswers = answers ? JSON.parse(answers as string) : {};
   const course = {
-    name: "Scalable Advanced Software Solution",
+    name: "Scalable Advanced Software Solutions",
   };
 
   const submittedQuestions = useMemo(() => {
@@ -33,15 +34,7 @@ const SolutionsPage = () => {
     <div className="bg-gradient-to-br min-h-screen from-[#100e2e] via-[#1e1b4b]  to-[#002345] px-4 md:px-10 py-6 w-full overflow-x-hidden">
       <div className="max-w-[1440px] mx-auto">
         {" "}
-        <div className="mb-10">
-          <h1
-            className={
-              `${font.className} ` + "text-white font-extrabold text-3xl"
-            }
-          >
-            ulster_mcq
-          </h1>
-        </div>
+        <Header />
         <div className="mt-20">
           <h1
             className={cn(

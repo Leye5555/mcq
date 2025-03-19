@@ -4,8 +4,10 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { useParams, useRouter } from "next/navigation";
 import { Smooch_Sans } from "next/font/google";
-import * as raw_questions from "@/data/azure_mcq_questions_fully_updated.json";
+import * as raw_questions from "@/data/mcq.json";
 import { cn } from "@/lib/utils";
+import Header from "@/components/Header";
+import { Metadata } from "next";
 const font = Smooch_Sans({ subsets: ["latin"] });
 
 const QuizPage = () => {
@@ -13,6 +15,11 @@ const QuizPage = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<{ [key: number]: string }>({});
   const [submitted, setSubmitted] = useState(false);
+  const [attempts, setAttempts] = useState(() => {
+    return localStorage.getItem("attempts")
+      ? Number(localStorage.getItem("attempts"))
+      : 0;
+  });
   const [time, setTime] = useState(0);
   const router = useRouter();
   const param = useParams();
@@ -66,15 +73,21 @@ const QuizPage = () => {
     }
   };
 
-  const submitQuiz = () => {
-    setSubmitted(true);
-  };
-
   const questions = useMemo(() => {
-    // shuffle the questions
-    const initial_questions = Array.from(raw_questions);
+    let initial_questions = Array.from(raw_questions);
+    // remove previous question set so we can cover all questions in the database
+    const prevQuestionIds = localStorage.getItem("questionIds");
+    if (
+      prevQuestionIds &&
+      JSON.parse(prevQuestionIds)?.length < initial_questions.length
+    )
+      initial_questions = initial_questions.filter(
+        (q) => !JSON.parse(prevQuestionIds)?.includes(q.id)
+      );
+
     let currentIndex = initial_questions.length;
 
+    // shuffle the questions
     while (currentIndex !== 0) {
       const randomIndex = Math.floor(Math.random() * currentIndex);
       currentIndex--;
@@ -84,8 +97,28 @@ const QuizPage = () => {
         initial_questions[currentIndex],
       ];
     }
-    return initial_questions.slice(0, 60);
+    const final_questions = initial_questions.slice(0, 60);
+    return final_questions;
   }, []);
+
+  const submitQuiz = () => {
+    setSubmitted(true);
+
+    const questionIds = questions.map((q) => q.id);
+    const prevQuestionIds = localStorage.getItem("questionIds");
+    if (
+      prevQuestionIds &&
+      JSON.parse(prevQuestionIds)?.length < raw_questions.length
+    ) {
+      questionIds.push(...JSON.parse(prevQuestionIds));
+    }
+    localStorage.setItem("questionIds", JSON.stringify(questionIds));
+    const attempts = localStorage.getItem("attempts");
+    localStorage.setItem(
+      "attempts",
+      attempts ? String(Number(attempts) + 1) : "1"
+    );
+  };
 
   const viewSolutions = () => {
     const search = new URLSearchParams("answers=" + JSON.stringify(answers));
@@ -112,15 +145,7 @@ const QuizPage = () => {
     <div className="bg-gradient-to-br min-h-screen from-[#100e2e] via-[#1e1b4b]  to-[#002345] px-4 md:px-10 py-6 w-full overflow-x-hidden">
       <div className="max-w-[1440px] mx-auto">
         {" "}
-        <div className="mb-10">
-          <h1
-            className={
-              `${font.className} ` + "text-white font-extrabold text-3xl"
-            }
-          >
-            ulster_mcq
-          </h1>
-        </div>
+        <Header />
         <div className="mt-20">
           <h1
             className={cn(
@@ -138,6 +163,7 @@ const QuizPage = () => {
                     <span className="text-sm font-semibold text-[#23bdb0]">
                       Answered: {answeredCount} / {questions.length}
                     </span>
+                    <span>Attempts : {attempts}</span>
                     <span className="text-sm text-[#23bdb0] ">
                       Time: {Math.floor(time / 60)}min {Math.floor(time % 60)}
                       sec

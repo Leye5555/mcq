@@ -4,24 +4,25 @@ import { Smooch_Sans } from "next/font/google";
 import Table from "@/components/Table";
 import UserStats from "@/components/UserStats";
 import { cn } from "@/lib/utils";
+import Header from "@/components/Header";
 const font = Smooch_Sans({ subsets: ["latin"] });
 
 export default function Home() {
   const data = [
     {
-      name: "Big Data and Infrastructure",
-      slug: "big_data_and_infrastructure",
-      description: "Big Data and Infrastructure",
-      level: "medium",
+      name: "Scalable Advanced Software Solutions",
+      slug: "scalable_advanced_software_solutions",
+      description: "Scalable Software Solution",
+      level: "hard",
       author: "user1",
       image:
         "https://images.unsplash.com/photo-1523275335684-37898b6c0773?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
     },
     {
-      name: "Scalable Advanced Software Solution",
-      slug: "scalable_advanced_software_solutions",
-      description: "Scalable Software Solution",
-      level: "hard",
+      name: "Big Data and Infrastructure",
+      slug: "big_data_and_infrastructure",
+      description: "Big Data and Infrastructure",
+      level: "medium",
       author: "user1",
       image:
         "https://images.unsplash.com/photo-1523275335684-37898b6c0773?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
@@ -108,15 +109,7 @@ export default function Home() {
     >
       <div className="max-w-[1440px] mx-auto">
         {" "}
-        <div className="mb-10">
-          <h1
-            className={
-              `${font.className} ` + "text-white font-extrabold text-3xl"
-            }
-          >
-            ulster_mcq
-          </h1>
-        </div>
+        <Header />
         <div className="flex gap-10 flex-wrap-reverse justify-between">
           <div className="flex-1 max-w-[923px]">
             <h2 className="text-white font-extrabold text-md  mb-2 mx-auto">
