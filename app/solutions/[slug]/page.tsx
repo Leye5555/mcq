@@ -14,14 +14,19 @@ const SolutionsPage = () => {
   const searchParams = useSearchParams();
   const answers = searchParams.get("answers");
 
-  const parsedAnswers = answers ? JSON.parse(answers as string) : {};
+  const parsedAnswers = useMemo(
+    () => (answers ? JSON.parse(answers as string) : {}),
+    [answers]
+  );
   const course = {
     name: "Scalable Advanced Software Solutions",
   };
 
   const submittedQuestions = useMemo(() => {
     return Object.keys(parsedAnswers).map((key) => {
-      const question = questions.find((q) => q.id === parseInt(key));
+      const question = Array.from(questions).find(
+        (q) => q.id === parseInt(key)
+      );
       return {
         ...question,
         id: parseInt(key),

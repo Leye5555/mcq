@@ -7,7 +7,6 @@ import { Smooch_Sans } from "next/font/google";
 import * as raw_questions from "@/data/mcq.json";
 import { cn } from "@/lib/utils";
 import Header from "@/components/Header";
-import { Metadata } from "next";
 const font = Smooch_Sans({ subsets: ["latin"] });
 
 const QuizPage = () => {
@@ -15,7 +14,7 @@ const QuizPage = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<{ [key: number]: string }>({});
   const [submitted, setSubmitted] = useState(false);
-  const [attempts, setAttempts] = useState(() => {
+  const [attempts] = useState(() => {
     return localStorage.getItem("attempts")
       ? Number(localStorage.getItem("attempts"))
       : 0;
@@ -108,7 +107,7 @@ const QuizPage = () => {
     const prevQuestionIds = localStorage.getItem("questionIds");
     if (
       prevQuestionIds &&
-      JSON.parse(prevQuestionIds)?.length < raw_questions.length
+      JSON.parse(prevQuestionIds)?.length < Array.from(raw_questions).length
     ) {
       questionIds.push(...JSON.parse(prevQuestionIds));
     }
