@@ -18,18 +18,18 @@ export default function Home() {
         "https://images.unsplash.com/photo-1523275335684-37898b6c0773?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
     },
     {
-      name: "Scalable Software Solution",
-      slug: "cloud_computing",
-      description: "Cloud Computing",
+      name: "Scalable Advanced Software Solution",
+      slug: "scalable_advanced_software_solutions",
+      description: "Scalable Software Solution",
       level: "hard",
       author: "user1",
       image:
         "https://images.unsplash.com/photo-1523275335684-37898b6c0773?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
     },
     {
-      name: "Cyber Security",
-      slug: "cyber_security",
-      description: "Cyber Security",
+      name: "Knowledge Engineering",
+      slug: "knowledge_engineering",
+      description: "Knowledge Engineering",
       level: "hard",
       author: "user1",
       image:

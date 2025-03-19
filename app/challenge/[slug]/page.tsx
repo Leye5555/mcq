@@ -1,10 +1,10 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { useParams, useRouter } from "next/navigation";
 import { Smooch_Sans } from "next/font/google";
-import * as questions from "@/data/azure_mcq_questions_fully_updated.json";
+import * as raw_questions from "@/data/azure_mcq_questions_fully_updated.json";
 import { cn } from "@/lib/utils";
 const font = Smooch_Sans({ subsets: ["latin"] });
 
@@ -16,6 +16,7 @@ const QuizPage = () => {
   const [time, setTime] = useState(0);
   const router = useRouter();
   const param = useParams();
+  const [compReady, setCompReady] = useState(false);
   //   const questions: Question[] = [
   //     {
   //       id: 1,
@@ -49,8 +50,8 @@ const QuizPage = () => {
     return () => clearInterval(timer);
   }, [countUp]);
 
-  const handleAnswer = (option: string) => {
-    setAnswers((prev) => ({ ...prev, [currentQuestionIndex]: option }));
+  const handleAnswer = ({ option, id }: { option: string; id: number }) => {
+    setAnswers((prev) => ({ ...prev, [id]: option }));
   };
 
   const nextQuestion = () => {
@@ -69,6 +70,23 @@ const QuizPage = () => {
     setSubmitted(true);
   };
 
+  const questions = useMemo(() => {
+    // shuffle the questions
+    const initial_questions = Array.from(raw_questions);
+    let currentIndex = initial_questions.length;
+
+    while (currentIndex !== 0) {
+      const randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+      //swap a random element with the current element
+      [initial_questions[currentIndex], initial_questions[randomIndex]] = [
+        initial_questions[randomIndex],
+        initial_questions[currentIndex],
+      ];
+    }
+    return initial_questions.slice(0, 60);
+  }, []);
+
   const viewSolutions = () => {
     const search = new URLSearchParams("answers=" + JSON.stringify(answers));
 
@@ -77,13 +95,18 @@ const QuizPage = () => {
 
   const answeredCount = Object.keys(answers).length;
   const score = questions.reduce(
-    (acc, q, index) => (answers[index] === q.correctAnswer ? acc + 1 : acc),
+    (acc, q, index) =>
+      answers[questions[index].id] === q.correctAnswer ? acc + 1 : acc,
     0
   );
 
   const course = {
-    name: "Big Data and Infrastructure",
+    name: "Scalable Advanced Software Solutions",
   };
+
+  useEffect(() => {
+    if (typeof window !== "undefined") setCompReady(true);
+  }, []);
 
   return (
     <div className="bg-gradient-to-br min-h-screen from-[#100e2e] via-[#1e1b4b]  to-[#002345] px-4 md:px-10 py-6 w-full overflow-x-hidden">
@@ -108,70 +131,78 @@ const QuizPage = () => {
             {course.name}
           </h1>
           <div className=" flex flex-col items-center justify-center  p-6 text-white">
-            <Card className="w-full max-w-3xl pt-4 sm:p-6 bg-black/50  rounded-2xl shadow-lg text-white">
-              <CardContent>
-                <div className="flex flex-wrap justify-between items-center mb-8">
-                  <span className="text-sm font-semibold text-[#23bdb0]">
-                    Answered: {answeredCount} / {questions.length}
-                  </span>
-                  <span className="text-sm text-[#23bdb0] ">
-                    Time: {Math.floor(time / 60)}min {Math.floor(time % 60)}sec
-                  </span>
-                </div>
-                <h2 className="text-2xl font-bold mb-4">
-                  {questions[currentQuestionIndex].question}
-                </h2>
-                <div className="space-y-3">
-                  {questions[currentQuestionIndex].options.map((option) => (
-                    <button
-                      key={option}
-                      className={`w-full p-3 text-left rounded-lg transition-all duration-200 border-2 
+            {compReady && (
+              <Card className="w-full max-w-3xl pt-4 sm:p-6 bg-black/50  rounded-2xl shadow-lg text-white">
+                <CardContent>
+                  <div className="flex flex-wrap justify-between items-center mb-8">
+                    <span className="text-sm font-semibold text-[#23bdb0]">
+                      Answered: {answeredCount} / {questions.length}
+                    </span>
+                    <span className="text-sm text-[#23bdb0] ">
+                      Time: {Math.floor(time / 60)}min {Math.floor(time % 60)}
+                      sec
+                    </span>
+                  </div>
+                  <h2 className="text-2xl font-bold mb-4">
+                    {questions[currentQuestionIndex].question}
+                  </h2>
+                  <div className="space-y-3">
+                    {questions[currentQuestionIndex].options.map((option) => (
+                      <button
+                        key={option}
+                        className={`w-full p-3 text-left rounded-lg transition-all duration-200 border-2 
                   ${
-                    answers[currentQuestionIndex] === option
+                    answers[questions[currentQuestionIndex].id] === option
                       ? "border-green-500 bg-green-700"
                       : "border-gray-600"
                   }
                 `}
-                      onClick={() => handleAnswer(option)}
-                    >
-                      {option}
-                    </button>
-                  ))}
-                </div>
-                <div className="flex justify-between mt-6">
-                  <Button
-                    onClick={prevQuestion}
-                    disabled={currentQuestionIndex === 0}
-                  >
-                    Previous
-                  </Button>
-                  {currentQuestionIndex === questions.length - 1 ? (
-                    <Button
-                      onClick={submitQuiz}
-                      className="bg-red-600 hover:bg-red-700"
-                    >
-                      Submit
-                    </Button>
-                  ) : (
-                    <Button onClick={nextQuestion}>Next</Button>
-                  )}
-                </div>
-                {submitted && (
-                  <div className="mt-4 p-4 bg-gray-700 rounded-lg">
-                    <h3 className="text-lg font-semibold">Results</h3>
-                    <p className="mt-2">
-                      Score: {score} / {questions.length}
-                    </p>
-                    <Button
-                      onClick={viewSolutions}
-                      className="mt-4 bg-blue-500 hover:bg-blue-600"
-                    >
-                      View Solutions
-                    </Button>
+                        onClick={() =>
+                          handleAnswer({
+                            option,
+                            id: questions[currentQuestionIndex].id,
+                          })
+                        }
+                      >
+                        {option}
+                      </button>
+                    ))}
                   </div>
-                )}
-              </CardContent>
-            </Card>
+                  <div className="flex justify-between mt-6">
+                    <Button
+                      onClick={prevQuestion}
+                      disabled={currentQuestionIndex === 0}
+                    >
+                      Previous
+                    </Button>
+                    {currentQuestionIndex === questions.length - 1 ? (
+                      <Button
+                        onClick={submitQuiz}
+                        className="bg-red-600 hover:bg-red-700"
+                      >
+                        Submit
+                      </Button>
+                    ) : (
+                      <Button onClick={nextQuestion}>Next</Button>
+                    )}
+                  </div>
+                  {submitted && (
+                    <div className="mt-4 p-4 bg-gray-700 rounded-lg">
+                      <h3 className="text-lg font-semibold">Results</h3>
+                      <p className="mt-2">
+                        Score: {score} / {questions.length}
+                      </p>
+                      <Button
+                        onClick={viewSolutions}
+                        className="mt-4 bg-blue-500 hover:bg-blue-600"
+                      >
+                        View Solutions
+                      </Button>
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            )}
           </div>
         </div>
       </div>

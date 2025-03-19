@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import * as questions from "@/data/azure_mcq_questions_fully_updated.json";
 import { Smooch_Sans } from "next/font/google";
 import { cn } from "@/lib/utils";
+import { useMemo } from "react";
 const font = Smooch_Sans({ subsets: ["latin"] });
 
 const SolutionsPage = () => {
@@ -14,8 +15,19 @@ const SolutionsPage = () => {
 
   const parsedAnswers = answers ? JSON.parse(answers as string) : {};
   const course = {
-    name: "Big Data and Infrastructure",
+    name: "Scalable Advanced Software Solution",
   };
+
+  const submittedQuestions = useMemo(() => {
+    return Object.keys(parsedAnswers).map((key) => {
+      const question = questions.find((q) => q.id === parseInt(key));
+      return {
+        ...question,
+        id: parseInt(key),
+        userAnswer: parsedAnswers[key],
+      };
+    });
+  }, [parsedAnswers]);
 
   return (
     <div className="bg-gradient-to-br min-h-screen from-[#100e2e] via-[#1e1b4b]  to-[#002345] px-4 md:px-10 py-6 w-full overflow-x-hidden">
@@ -43,7 +55,7 @@ const SolutionsPage = () => {
             <Card className="w-full max-w-3xl pt-4 sm:p-6 bg-black/50  rounded-2xl shadow-lg text-white">
               <CardContent>
                 <h2 className="text-2xl font-bold mb-4">Solutions</h2>
-                {questions.map((q, index) => (
+                {submittedQuestions.map((q) => (
                   <div
                     key={q.id}
                     className="mb-6 p-4 border border-gray-600 rounded-lg"
@@ -53,12 +65,12 @@ const SolutionsPage = () => {
                       Your Answer:{" "}
                       <span
                         className={
-                          parsedAnswers[index] === q.correctAnswer
+                          q.userAnswer === q.correctAnswer
                             ? "text-green-400"
                             : "text-red-400"
                         }
                       >
-                        {parsedAnswers[index] || "Not answered"}
+                        {q.userAnswer || "Not answered"}
                       </span>
                     </p>
                     <p className="mt-1 text-green-400">
@@ -73,7 +85,7 @@ const SolutionsPage = () => {
                   onClick={() => router.push("/")}
                   className="mt-4 bg-blue-500 hover:bg-blue-600"
                 >
-                  Back to Quiz
+                  Back to Quizzes
                 </Button>
               </CardContent>
             </Card>
