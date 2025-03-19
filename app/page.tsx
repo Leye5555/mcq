@@ -1,101 +1,156 @@
-import Image from "next/image";
+import Card from "@/components/Card";
+import React from "react";
+import { Smooch_Sans } from "next/font/google";
+import Table from "@/components/Table";
+import UserStats from "@/components/UserStats";
+import { cn } from "@/lib/utils";
+const font = Smooch_Sans({ subsets: ["latin"] });
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const data = [
+    {
+      name: "Big Data and Infrastructure",
+      slug: "big_data_and_infrastructure",
+      description: "Big Data and Infrastructure",
+      level: "medium",
+      author: "user1",
+      image:
+        "https://images.unsplash.com/photo-1523275335684-37898b6c0773?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+    },
+    {
+      name: "Scalable Software Solution",
+      slug: "cloud_computing",
+      description: "Cloud Computing",
+      level: "hard",
+      author: "user1",
+      image:
+        "https://images.unsplash.com/photo-1523275335684-37898b6c0773?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+    },
+    {
+      name: "Cyber Security",
+      slug: "cyber_security",
+      description: "Cyber Security",
+      level: "hard",
+      author: "user1",
+      image:
+        "https://images.unsplash.com/photo-1523275335684-37898b6c0773?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+    },
+  ];
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+  const contestants = [
+    {
+      username: "user1",
+      duration: "30mins",
+      score: "50/60",
+      title: "Top Boss (1st)",
+    },
+    {
+      username: "user1",
+      duration: "29mins",
+      score: "50/60",
+      title: "Top (2nd)",
+    },
+    {
+      username: "user1",
+      duration: "29mins",
+      score: "49/60",
+      title: "Contender (3rd)",
+    },
+    {
+      username: "user1",
+      duration: "28mins",
+      score: "49/60",
+      title: "Contender (4th)",
+    },
+    {
+      username: "user1",
+      duration: "28mins",
+      score: "49/60",
+      title: "Contender (5th)",
+    },
+    {
+      username: "user1",
+      duration: "28mins",
+      score: "49/60",
+      title: "Contender (6th)",
+    },
+    {
+      username: "user1",
+      duration: "28mins",
+      score: "49/60",
+      title: "Contender (7th)",
+    },
+    {
+      username: "user1",
+      duration: "28mins",
+      score: "49/60",
+      title: "Contender (8th)",
+    },
+    {
+      username: "user1",
+      duration: "28mins",
+      score: "49/60",
+      title: "Contender (9th)",
+    },
+    {
+      username: "user1",
+      duration: "28mins",
+      score: "49/60",
+      title: "Contender (10th)",
+    },
+  ];
+  return (
+    <div
+      className={cn(
+        "bg-gradient-to-br min-h-screen from-[#100e2e] via-[#1e1b4b]  to-[#002345] px-4 md:px-10 py-6 w-full overflow-x-hidden",
+        font.className
+      )}
+    >
+      <div className="max-w-[1440px] mx-auto">
+        {" "}
+        <div className="mb-10">
+          <h1
+            className={
+              `${font.className} ` + "text-white font-extrabold text-3xl"
+            }
           >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+            ulster_mcq
+          </h1>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+        <div className="flex gap-10 flex-wrap-reverse justify-between">
+          <div className="flex-1 max-w-[923px]">
+            <h2 className="text-white font-extrabold text-md  mb-2 mx-auto">
+              Courses
+            </h2>
+            <div className="flex flex-wrap   mx-auto mb-10">
+              <div
+                className={
+                  `${font.className} ` +
+                  "flex w-full justify-between flex-wrap flex-1  gap-x-2 gap-y-5"
+                }
+              >
+                {data.map((item) => (
+                  <React.Fragment key={item.slug}>
+                    <Card {...item} />
+                  </React.Fragment>
+                ))}
+              </div>
+            </div>
+            <h2 className="text-white font-extrabold text-md  mb-2 mx-auto">
+              Hall of Fame
+            </h2>
+            <div className="max-w-[923px] mx-auto overflow-x-hidden">
+              <Table contestants={contestants} />
+            </div>
+          </div>
+          <div className="flex-1 max-w-[300px]">
+            <h2 className="text-white font-extrabold text-md  mb-2 mx-auto">
+              Your Stats
+            </h2>
+            <UserStats />
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
