@@ -1,0 +1,557 @@
+[
+  {
+    "id": 51,
+    "question": "Given an ontology where 'Lecture' is a subclass of 'Course', and 'Room' must be partOf a 'Building', which formal axiom best represents the requirement that every 'Room' instance must belong to at least one 'Building'?",
+    "options": [
+      "∀x Lecture(x) → Course(x)",
+      "∀x Room(x) → ∃y partOf(x, y) ∧ Building(y)",
+      "∀x Building(x) → Room(x)",
+      "∃x Room(x) ∧ ∃y Building(y)"
+    ],
+    "correctAnswer": "∀x Room(x) → ∃y partOf(x, y) ∧ Building(y)",
+    "explanation": "This axiom states that for every Room, there exists a Building such that the Room is part of the Building, as described in the lecture."
+  },
+  {
+    "id": 52,
+    "question": "In OWL, which construct would you use to declare that no individual can simultaneously be a member of both the 'Male' and 'Female' classes?",
+    "options": [
+      "owl:equivalentClass",
+      "owl:disjointWith",
+      "owl:sameAs",
+      "owl:subClassOf"
+    ],
+    "correctAnswer": "owl:disjointWith",
+    "explanation": "owl:disjointWith is used to declare that two classes have no individuals in common, as shown in the animal example."
+  },
+  {
+    "id": 53,
+    "question": "You are designing an ontology for a university. Which OWL property characteristic should you use to ensure that each 'StudentID' uniquely identifies a student?",
+    "options": [
+      "owl:FunctionalProperty",
+      "owl:InverseFunctionalProperty",
+      "owl:TransitiveProperty",
+      "owl:SymmetricProperty"
+    ],
+    "correctAnswer": "owl:InverseFunctionalProperty",
+    "explanation": "owl:InverseFunctionalProperty ensures that if two individuals have the same value for a property, they are the same individual, which is suitable for unique identifiers."
+  },
+  {
+    "id": 54,
+    "question": "If you want to model that a 'SeminarRoom' is always part of the 'APB' building and is used for events on Wednesdays, which type of query would best retrieve all such rooms?",
+    "options": [
+      "A SPARQL query with triple patterns",
+      "A SQL query with JOINs",
+      "A REST API call",
+      "A simple keyword search"
+    ],
+    "correctAnswer": "A SPARQL query with triple patterns",
+    "explanation": "SPARQL is designed for querying RDF/OWL data using triple patterns and is appropriate for this scenario."
+  },
+  {
+    "id": 55,
+    "question": "Which OWL sublanguage would you choose if you need to guarantee decidability and require more expressivity than simple hierarchies?",
+    "options": ["OWL Lite", "OWL DL", "OWL Full", "RDFS"],
+    "correctAnswer": "OWL DL",
+    "explanation": "OWL DL is based on Description Logics, is more expressive than OWL Lite, and guarantees decidability."
+  },
+  {
+    "id": 56,
+    "question": "In Protégé, after running a reasoner, you notice that two classes you expected to be disjoint are inferred to have a common subclass. What is the most likely cause?",
+    "options": [
+      "You forgot to declare them as disjoint",
+      "You used owl:equivalentClass instead of owl:disjointWith",
+      "You did not assign any individuals",
+      "The ontology is not saved"
+    ],
+    "correctAnswer": "You forgot to declare them as disjoint",
+    "explanation": "Disjointness must be explicitly declared in OWL; otherwise, classes may overlap in the inferred hierarchy."
+  },
+  {
+    "id": 57,
+    "question": "Which of the following best describes the trade-off between expressive power and efficient reasoning in ontology languages?",
+    "options": [
+      "More expressive languages always have faster reasoning",
+      "Less expressive languages allow more efficient reasoning",
+      "Expressive power and efficiency are unrelated",
+      "Efficient reasoning is only possible in OWL Full"
+    ],
+    "correctAnswer": "Less expressive languages allow more efficient reasoning",
+    "explanation": "There is a trade-off: more expressive languages often make reasoning less efficient."
+  },
+  {
+    "id": 58,
+    "question": "Suppose you want to restrict a property so that an individual can have at most one value for it. Which OWL property characteristic should you use?",
+    "options": [
+      "owl:FunctionalProperty",
+      "owl:TransitiveProperty",
+      "owl:SymmetricProperty",
+      "owl:DatatypeProperty"
+    ],
+    "correctAnswer": "owl:FunctionalProperty",
+    "explanation": "owl:FunctionalProperty restricts a property to have at most one value for each individual."
+  },
+  {
+    "id": 59,
+    "question": "In your ontology, you want to ensure that the class 'Professor' is a subclass of 'Employee', and that all professors must have at least one 'teaches' relationship to a 'Course'. Which OWL feature would you use?",
+    "options": [
+      "owl:subClassOf with property restriction",
+      "owl:equivalentClass with intersectionOf",
+      "owl:disjointWith",
+      "owl:AllDifferent"
+    ],
+    "correctAnswer": "owl:subClassOf with property restriction",
+    "explanation": "You can use owl:subClassOf to create a subclass relationship and add a restriction on the 'teaches' property."
+  },
+  {
+    "id": 60,
+    "question": "Which reasoning system would you use in Protégé to check for inconsistencies in a large OWL 2 ontology?",
+    "options": ["Pellet", "Excel", "Photoshop", "WordPress"],
+    "correctAnswer": "Pellet",
+    "explanation": "Pellet is a popular OWL reasoner that supports OWL 2 and can check for inconsistencies."
+  },
+  {
+    "id": 61,
+    "question": "You are tasked with integrating two ontologies, one using 'Person' and one using 'Human' for the same concept. Which OWL feature can help you link these classes?",
+    "options": [
+      "owl:equivalentClass",
+      "owl:sameAs",
+      "owl:disjointWith",
+      "owl:FunctionalProperty"
+    ],
+    "correctAnswer": "owl:equivalentClass",
+    "explanation": "owl:equivalentClass asserts that two classes have the same instances."
+  },
+  {
+    "id": 62,
+    "question": "Which of the following is NOT a standard non-standard inference supported by ontology reasoners?",
+    "options": ["Explanation", "Matching", "Least common subsumer", "Sorting"],
+    "correctAnswer": "Sorting",
+    "explanation": "Sorting is not a non-standard inference; explanation, matching, and least common subsumer are."
+  },
+  {
+    "id": 63,
+    "question": "You want to model a property 'hasParent' such that if A hasParent B and B hasParent C, then A hasParent C. Which property characteristic should you use?",
+    "options": [
+      "owl:TransitiveProperty",
+      "owl:SymmetricProperty",
+      "owl:FunctionalProperty",
+      "owl:InverseFunctionalProperty"
+    ],
+    "correctAnswer": "owl:TransitiveProperty",
+    "explanation": "owl:TransitiveProperty allows chaining of property values as described."
+  },
+  {
+    "id": 64,
+    "question": "In your ontology, you have the property 'marriedTo'. If A marriedTo B implies B marriedTo A, which OWL property characteristic applies?",
+    "options": [
+      "owl:SymmetricProperty",
+      "owl:TransitiveProperty",
+      "owl:FunctionalProperty",
+      "owl:DatatypeProperty"
+    ],
+    "correctAnswer": "owl:SymmetricProperty",
+    "explanation": "owl:SymmetricProperty means the property holds in both directions."
+  },
+  {
+    "id": 65,
+    "question": "Which OWL serialization is most human-readable for editing and debugging?",
+    "options": ["Turtle", "RDF/XML", "OWL/XML", "Manchester Syntax"],
+    "correctAnswer": "Manchester Syntax",
+    "explanation": "Manchester Syntax is designed for readability and is widely used in tools like Protégé."
+  },
+  {
+    "id": 66,
+    "question": "You want to modularize a large ontology for reuse and scalability. Which approach is most appropriate?",
+    "options": [
+      "Divide the ontology into domain-specific modules",
+      "Put all classes and properties in a single file",
+      "Use only glossaries",
+      "Avoid using subClassOf relationships"
+    ],
+    "correctAnswer": "Divide the ontology into domain-specific modules",
+    "explanation": "Modularization involves splitting the ontology into manageable, reusable modules."
+  },
+  {
+    "id": 67,
+    "question": "Which of the following is a key principle in ontology design to ensure shared meaning?",
+    "options": [
+      "Explicit commitment to shared conceptualization",
+      "Maximizing the number of classes",
+      "Using only natural language definitions",
+      "Avoiding property restrictions"
+    ],
+    "correctAnswer": "Explicit commitment to shared conceptualization",
+    "explanation": "Ontologies are built on shared, explicit conceptualizations of the domain."
+  },
+  {
+    "id": 68,
+    "question": "You are using Protégé and want to visualize the class hierarchy. Which plugin or feature would you use?",
+    "options": [
+      "Class hierarchy view",
+      "SPARQL query tab",
+      "Data property assertions",
+      "Ontology metrics"
+    ],
+    "correctAnswer": "Class hierarchy view",
+    "explanation": "The class hierarchy view in Protégé displays the ontology's class structure."
+  },
+  {
+    "id": 69,
+    "question": "Which of the following best describes the purpose of OWL's 'sameAs' property?",
+    "options": [
+      "Declares two individuals are identical",
+      "Declares two classes are equivalent",
+      "Declares two properties are symmetric",
+      "Declares two classes are disjoint"
+    ],
+    "correctAnswer": "Declares two individuals are identical",
+    "explanation": "owl:sameAs is used to state that two individuals are the same."
+  },
+  {
+    "id": 70,
+    "question": "In OWL, what is the effect of declaring a property as both functional and inverse functional?",
+    "options": [
+      "It becomes a one-to-one relationship",
+      "It becomes symmetric",
+      "It becomes transitive",
+      "It becomes reflexive"
+    ],
+    "correctAnswer": "It becomes a one-to-one relationship",
+    "explanation": "A property that is both functional and inverse functional is a one-to-one mapping."
+  },
+  {
+    "id": 71,
+    "question": "Which OWL feature allows you to specify that a class is exactly the union of several other classes?",
+    "options": [
+      "owl:unionOf",
+      "owl:intersectionOf",
+      "owl:disjointWith",
+      "owl:equivalentClass"
+    ],
+    "correctAnswer": "owl:unionOf",
+    "explanation": "owl:unionOf defines a class as the union of several other classes."
+  },
+  {
+    "id": 72,
+    "question": "You want to declare that two properties have the same extension (i.e., always hold for the same pairs of individuals). Which OWL construct do you use?",
+    "options": [
+      "owl:equivalentProperty",
+      "owl:sameAs",
+      "owl:inverseOf",
+      "owl:disjointWith"
+    ],
+    "correctAnswer": "owl:equivalentProperty",
+    "explanation": "owl:equivalentProperty declares two properties as having the same extension."
+  },
+  {
+    "id": 73,
+    "question": "Which of the following is a benefit of using Description Logics as the formal underpinning of OWL DL?",
+    "options": [
+      "Automated reasoning is decidable",
+      "Syntax is less strict",
+      "Supports all first-order logic features",
+      "No need for explicit class hierarchies"
+    ],
+    "correctAnswer": "Automated reasoning is decidable",
+    "explanation": "Description Logics provide a decidable fragment of logic for automated reasoning."
+  },
+  {
+    "id": 74,
+    "question": "If you want to express that a property 'hasChild' is the inverse of 'hasParent', which OWL construct do you use?",
+    "options": [
+      "owl:inverseOf",
+      "owl:equivalentProperty",
+      "owl:sameAs",
+      "owl:disjointWith"
+    ],
+    "correctAnswer": "owl:inverseOf",
+    "explanation": "owl:inverseOf links two properties as inverses of each other."
+  },
+  {
+    "id": 75,
+    "question": "Which of the following is NOT a standard feature of OWL 2 compared to OWL 1?",
+    "options": [
+      "Property chains",
+      "Qualified cardinality restrictions",
+      "Negative property assertions",
+      "Direct database connectivity"
+    ],
+    "correctAnswer": "Direct database connectivity",
+    "explanation": "OWL 2 adds property chains, qualified cardinality, and negative property assertions, but not direct database connectivity."
+  },
+  {
+    "id": 76,
+    "question": "When using a reasoner in Protégé, which of the following is a sign that your ontology may have modeling errors?",
+    "options": [
+      "Inconsistent classes",
+      "Too many individuals",
+      "Lack of annotation properties",
+      "Absence of data properties"
+    ],
+    "correctAnswer": "Inconsistent classes",
+    "explanation": "Inconsistent classes often indicate modeling errors or contradictions."
+  },
+  {
+    "id": 77,
+    "question": "Which approach is best for integrating ontologies from different domains?",
+    "options": [
+      "Ontology alignment and mapping",
+      "Copying all classes into one ontology",
+      "Using only glossaries",
+      "Ignoring property characteristics"
+    ],
+    "correctAnswer": "Ontology alignment and mapping",
+    "explanation": "Alignment and mapping are standard approaches for integrating ontologies."
+  },
+  {
+    "id": 78,
+    "question": "Which of the following best describes the use of SPARQL in ontology-based systems?",
+    "options": [
+      "Querying RDF/OWL data using triple patterns",
+      "Defining new classes",
+      "Editing ontology files",
+      "Running reasoners"
+    ],
+    "correctAnswer": "Querying RDF/OWL data using triple patterns",
+    "explanation": "SPARQL is the query language for RDF/OWL data."
+  },
+  {
+    "id": 79,
+    "question": "If you want to express that a class 'Employee' is the intersection of 'Person' and 'Worker', which OWL construct do you use?",
+    "options": [
+      "owl:intersectionOf",
+      "owl:unionOf",
+      "owl:disjointWith",
+      "owl:equivalentClass"
+    ],
+    "correctAnswer": "owl:intersectionOf",
+    "explanation": "owl:intersectionOf defines a class as the intersection of other classes."
+  },
+  {
+    "id": 80,
+    "question": "Which of the following is a valid use of owl:AllDifferent?",
+    "options": [
+      "To state that a set of individuals are all distinct",
+      "To declare all classes are different",
+      "To specify different property types",
+      "To create disjoint unions"
+    ],
+    "correctAnswer": "To state that a set of individuals are all distinct",
+    "explanation": "owl:AllDifferent is used to declare that a set of individuals are all different from each other."
+  },
+  {
+    "id": 81,
+    "question": "Which of the following is a benefit of using modular ontologies?",
+    "options": [
+      "Easier maintenance and reuse",
+      "Increased reasoning time",
+      "More complex class hierarchies",
+      "Fewer property restrictions"
+    ],
+    "correctAnswer": "Easier maintenance and reuse",
+    "explanation": "Modular ontologies are easier to maintain and can be reused across projects."
+  },
+  {
+    "id": 82,
+    "question": "What is the main purpose of using annotation properties in OWL?",
+    "options": [
+      "To provide metadata about classes and properties",
+      "To define property characteristics",
+      "To enforce cardinality restrictions",
+      "To create inverse properties"
+    ],
+    "correctAnswer": "To provide metadata about classes and properties",
+    "explanation": "Annotation properties are used for metadata, such as comments and labels."
+  },
+  {
+    "id": 83,
+    "question": "Which of the following is NOT a reason to use automated reasoners with ontologies?",
+    "options": [
+      "Checking for inconsistencies",
+      "Automated classification",
+      "Generating random data",
+      "Supporting inference"
+    ],
+    "correctAnswer": "Generating random data",
+    "explanation": "Reasoners are not used for generating random data."
+  },
+  {
+    "id": 84,
+    "question": "If you want to create a property that links individuals to data values (e.g., age, name), which OWL property type should you use?",
+    "options": [
+      "owl:DatatypeProperty",
+      "owl:ObjectProperty",
+      "owl:AnnotationProperty",
+      "owl:TransitiveProperty"
+    ],
+    "correctAnswer": "owl:DatatypeProperty",
+    "explanation": "Datatype properties link individuals to data values."
+  },
+  {
+    "id": 85,
+    "question": "Which of the following is a key advantage of using OWL over RDFS?",
+    "options": [
+      "Support for complex class relationships and reasoning",
+      "Simpler syntax",
+      "Direct database connectivity",
+      "Faster web page rendering"
+    ],
+    "correctAnswer": "Support for complex class relationships and reasoning",
+    "explanation": "OWL supports more complex relationships and reasoning than RDFS."
+  },
+  {
+    "id": 86,
+    "question": "Which of the following is NOT a standard OWL property characteristic?",
+    "options": [
+      "TransitiveProperty",
+      "SymmetricProperty",
+      "FunctionalProperty",
+      "TemporalProperty"
+    ],
+    "correctAnswer": "TemporalProperty",
+    "explanation": "TemporalProperty is not a standard OWL property characteristic."
+  },
+  {
+    "id": 87,
+    "question": "You want to ensure that a class 'Vehicle' cannot have any individuals that are also in class 'Animal'. What OWL construct do you use?",
+    "options": [
+      "owl:disjointWith",
+      "owl:equivalentClass",
+      "owl:unionOf",
+      "owl:AllDifferent"
+    ],
+    "correctAnswer": "owl:disjointWith",
+    "explanation": "owl:disjointWith declares that classes have no individuals in common."
+  },
+  {
+    "id": 88,
+    "question": "Which of the following best describes the purpose of formal semantics in ontology languages?",
+    "options": [
+      "To enable automated reasoning and unambiguous interpretation",
+      "To improve visual design",
+      "To increase the number of classes",
+      "To speed up ontology editing"
+    ],
+    "correctAnswer": "To enable automated reasoning and unambiguous interpretation",
+    "explanation": "Formal semantics provide the foundation for reasoning and precise meaning."
+  },
+  {
+    "id": 89,
+    "question": "Which of the following is a valid triple in RDF?",
+    "options": [
+      "<subject> <property> <object>",
+      "<property> <object> <subject>",
+      "<object> <subject> <property>",
+      "<subject> <object> <property>"
+    ],
+    "correctAnswer": "<subject> <property> <object>",
+    "explanation": "RDF expresses information as subject-property-object triples."
+  },
+  {
+    "id": 90,
+    "question": "Which of the following is NOT a standard serialization or syntax for OWL?",
+    "options": ["XML", "JSON", "RDF/XML", "Turtle"],
+    "correctAnswer": "JSON",
+    "explanation": "OWL is typically serialized in XML, RDF/XML, or Turtle, but not JSON."
+  },
+  {
+    "id": 91,
+    "question": "Which of the following is a benefit of using Protégé for ontology development?",
+    "options": [
+      "Extensible platform with plug-ins",
+      "Integrated email client",
+      "Video editing capabilities",
+      "Built-in spreadsheet tools"
+    ],
+    "correctAnswer": "Extensible platform with plug-ins",
+    "explanation": "Protégé is extensible with plug-ins, supporting ontology development."
+  },
+  {
+    "id": 92,
+    "question": "Which of the following is a key requirement for efficient reasoning in ontology languages?",
+    "options": [
+      "A tradeoff between expressive power and efficient reasoning support",
+      "High expressive power without concern for efficiency",
+      "No need for formal semantics",
+      "Support for only informal glossaries"
+    ],
+    "correctAnswer": "A tradeoff between expressive power and efficient reasoning support",
+    "explanation": "Ontology languages must balance expressive power with reasoning efficiency."
+  },
+  {
+    "id": 93,
+    "question": "Which of the following is NOT a component of the object-oriented model used in ontology languages?",
+    "options": [
+      "Objects/Instances/Individuals",
+      "Types/Classes/Concepts",
+      "Relations/Properties/Roles",
+      "Functions/Methods"
+    ],
+    "correctAnswer": "Functions/Methods",
+    "explanation": "Functions/Methods are not a standard component in ontology object models."
+  },
+  {
+    "id": 94,
+    "question": "Which OWL sublanguage is best for simple hierarchies and constraints?",
+    "options": ["OWL Lite", "OWL DL", "OWL Full", "OWL Advanced"],
+    "correctAnswer": "OWL Lite",
+    "explanation": "OWL Lite is designed for simple hierarchies and constraints."
+  },
+  {
+    "id": 95,
+    "question": "Which of the following is a reasoning system for OWL?",
+    "options": ["FaCT++", "Excel", "SPSS", "Photoshop"],
+    "correctAnswer": "FaCT++",
+    "explanation": "FaCT++ is an automated reasoner for OWL ontologies."
+  },
+  {
+    "id": 96,
+    "question": "Which of the following is an example of a non-standard inference in ontology reasoning?",
+    "options": ["Explanation", "Subsumption", "Classification", "Equivalence"],
+    "correctAnswer": "Explanation",
+    "explanation": "Explanation is considered a non-standard inference in ontology reasoning."
+  },
+  {
+    "id": 97,
+    "question": "Which of the following is NOT a typical feature of Protégé?",
+    "options": [
+      "Editing and visualizing classes and properties",
+      "Executing reasoners",
+      "Automatic generation of GUIs for domain instances",
+      "Compiling Java code"
+    ],
+    "correctAnswer": "Compiling Java code",
+    "explanation": "Protégé does not compile Java code; it is an ontology editor."
+  },
+  {
+    "id": 98,
+    "question": "Which OWL feature allows you to assert that two classes are equivalent?",
+    "options": [
+      "owl:equivalentClass",
+      "owl:disjointWith",
+      "owl:subClassOf",
+      "owl:sameAs"
+    ],
+    "correctAnswer": "owl:equivalentClass",
+    "explanation": "owl:equivalentClass asserts equivalence between two classes in OWL."
+  },
+  {
+    "id": 99,
+    "question": "Which of the following is a standard for restricting the structure of XML documents?",
+    "options": ["XML Schema", "OWL", "RDF", "UML"],
+    "correctAnswer": "XML Schema",
+    "explanation": "XML Schema is used to restrict the structure of XML documents."
+  },
+  {
+    "id": 100,
+    "question": "Which of the following is a typical application domain for knowledge graphs?",
+    "options": [
+      "Supply chains",
+      "Video streaming",
+      "Graphic design",
+      "Email marketing"
+    ],
+    "correctAnswer": "Supply chains",
+    "explanation": "Knowledge graphs are used in domains such as supply chains."
+  }
+]
