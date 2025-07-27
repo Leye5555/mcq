@@ -3,7 +3,6 @@ import {
   Dialog,
   DialogClose,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -24,10 +23,6 @@ const MyDialog = ({
           <DialogTitle className="text-white">
             Submission successful!
           </DialogTitle>
-          <DialogDescription className="text-white">
-            You can view your submission and the corrects answers by clicking
-            view solutions
-          </DialogDescription>
         </DialogHeader>
         {children}
         <DialogFooter className="gap-4">
