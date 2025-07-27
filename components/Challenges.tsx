@@ -11,6 +11,7 @@ import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { cn } from "@/lib/utils";
 import Header from "@/components/Header";
+import Dialog from "./Dialog";
 const font = Smooch_Sans({ subsets: ["latin"] });
 
 const Challenges = ({ slug }: { slug: string }) => {
@@ -115,7 +116,7 @@ const Challenges = ({ slug }: { slug: string }) => {
         initial_questions[currentIndex],
       ];
     }
-    const final_questions = initial_questions.slice(0, 20);
+    const final_questions = initial_questions.slice(0, 5);
     return final_questions;
   }, [slug]);
 
@@ -277,18 +278,14 @@ const Challenges = ({ slug }: { slug: string }) => {
                     )}
                   </div>
                   {submitted && (
-                    <div className="mt-4 p-4 bg-gray-700 rounded-lg">
-                      <h3 className="text-lg font-semibold">Results</h3>
-                      <p className="mt-2">
-                        Score: {score} / {questions.length}
-                      </p>
-                      <Button
-                        onClick={viewSolutions}
-                        className="mt-4 bg-blue-500 hover:bg-blue-600"
-                      >
-                        View Solutions
-                      </Button>
-                    </div>
+                    <Dialog viewSolutions={viewSolutions}>
+                      <div className="mt-4 p-4 bg-gray-700 rounded-lg text-white">
+                        <h3 className="text-lg font-semibold">Results</h3>
+                        <p className="mt-2 text-xl font-bold">
+                          Score: {score} / {questions.length}
+                        </p>
+                      </div>
+                    </Dialog>
                   )}
                 </CardContent>
               </Card>
