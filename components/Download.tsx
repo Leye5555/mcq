@@ -9,7 +9,7 @@ import {
 
 const Download = () => {
   return (
-    <Menubar>
+    <Menubar className="bg-transparent">
       <MenubarMenu>
         <MenubarTrigger className="!bg-slate-800 border-blue-950 !text-white">
           Download Questions
