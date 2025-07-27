@@ -116,7 +116,7 @@ const Challenges = ({ slug }: { slug: string }) => {
         initial_questions[currentIndex],
       ];
     }
-    const final_questions = initial_questions.slice(0, 5);
+    const final_questions = initial_questions.slice(0, 10);
     return final_questions;
   }, [slug]);
 

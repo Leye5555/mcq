@@ -30,13 +30,13 @@ const MyDialog = ({
           </DialogDescription>
         </DialogHeader>
         {children}
-        <DialogFooter>
+        <DialogFooter className="gap-4">
           <DialogClose asChild>
             <Button
               variant="outline"
               onClick={() => window?.location?.reload()}
             >
-              Restart
+              New Challenge
             </Button>
           </DialogClose>
           <Button type="button" onClick={viewSolutions}>
