@@ -132,16 +132,16 @@ export default function Home() {
       <div className="max-w-[1440px] mx-auto">
         {" "}
         <Header />
-        <div className="flex gap-10 flex-wrap justify-between">
+        <div className="flex gap-10 flex-wrap justify-center sm:justify-between">
           <div className="flex-1 max-w-[923px]">
-            <h2 className="text-white font-extrabold text-md  mb-2 mx-auto">
+            <h2 className="text-white text-center sm:text-start font-extrabold text-md  mb-2 mx-auto">
               Courses - Second Semester
             </h2>
             <div className="flex flex-wrap   mx-auto mb-10">
               <div
                 className={
                   `${font.className} ` +
-                  "flex w-full justify-between flex-wrap flex-1  gap-x-2 gap-y-5"
+                  "flex w-full justify-center sm:justify-between flex-wrap flex-1  gap-x-2 gap-y-5"
                 }
               >
                 {data2.map((item) => (
@@ -153,14 +153,14 @@ export default function Home() {
             </div>
           </div>
           <div className="flex-1 max-w-[923px]">
-            <h2 className="text-white font-extrabold text-md  mb-2 mx-auto">
+            <h2 className="text-white text-center sm:text-start font-extrabold text-md  mb-2 mx-auto">
               Courses - First Semester
             </h2>
-            <div className="flex flex-wrap   mx-auto mb-10">
+            <div className="flex flex-wrap  mx-auto mb-10">
               <div
                 className={
                   `${font.className} ` +
-                  "flex w-full justify-between flex-wrap flex-1  gap-x-2 gap-y-5"
+                  "flex w-full justify-center sm:justify-between flex-wrap flex-1  gap-x-2 gap-y-5"
                 }
               >
                 {data1.map((item) => (
