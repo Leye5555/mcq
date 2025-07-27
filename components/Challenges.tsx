@@ -5,7 +5,10 @@ import { Card, CardContent } from "@/components/ui/card";
 import { useParams, useRouter } from "next/navigation";
 import { Smooch_Sans } from "next/font/google";
 import * as raw_questions from "@/data/mcq.json";
+import * as ds_and_ml from "@/data/ds_and_ml.json";
 import * as ke_questions from "@/data/knowledge_engineering2.json";
+import Markdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import { cn } from "@/lib/utils";
 import Header from "@/components/Header";
 const font = Smooch_Sans({ subsets: ["latin"] });
@@ -16,8 +19,8 @@ const Challenges = ({ slug }: { slug: string }) => {
   const [answers, setAnswers] = useState<{ [key: number]: string }>({});
   const [submitted, setSubmitted] = useState(false);
   const [attempts] = useState(() => {
-    return localStorage.getItem("attempts")
-      ? Number(localStorage.getItem("attempts"))
+    return localStorage.getItem("attempts_new")
+      ? Number(localStorage.getItem("attempts_new"))
       : 0;
   });
 
@@ -83,12 +86,15 @@ const Challenges = ({ slug }: { slug: string }) => {
       case "scalable_advanced_software_solutions":
         initial_questions = Array.from(raw_questions);
         break;
+      case "ds_and_ml":
+        initial_questions = Array.from(ds_and_ml);
+        break;
       default:
         initial_questions = Array.from(ke_questions);
         break;
     }
     // remove previous question set so we can cover all questions in the database
-    const prevQuestionIds = localStorage.getItem("questionIds");
+    const prevQuestionIds = localStorage.getItem("questionIds_new");
     if (
       prevQuestionIds &&
       JSON.parse(prevQuestionIds)?.length < initial_questions.length
@@ -109,25 +115,25 @@ const Challenges = ({ slug }: { slug: string }) => {
         initial_questions[currentIndex],
       ];
     }
-    const final_questions = initial_questions.slice(0, 60);
+    const final_questions = initial_questions.slice(0, 20);
     return final_questions;
-  }, []);
+  }, [slug]);
 
   const submitQuiz = () => {
     setSubmitted(true);
 
     const questionIds = questions.map((q) => q.id);
-    const prevQuestionIds = localStorage.getItem("questionIds");
+    const prevQuestionIds = localStorage.getItem("questionIds_new");
     if (
       prevQuestionIds &&
       JSON.parse(prevQuestionIds)?.length < Array.from(raw_questions).length
     ) {
       questionIds.push(...JSON.parse(prevQuestionIds));
     }
-    localStorage.setItem("questionIds", JSON.stringify(questionIds));
-    const attempts = localStorage.getItem("attempts");
+    localStorage.setItem("questionIds_new", JSON.stringify(questionIds));
+    const attempts = localStorage.getItem("attempts_new");
     localStorage.setItem(
-      "attempts",
+      "attempts_new",
       attempts ? String(Number(attempts) + 1) : "1"
     );
   };
@@ -144,10 +150,54 @@ const Challenges = ({ slug }: { slug: string }) => {
       answers[questions[index].id] === q.correctAnswer ? acc + 1 : acc,
     0
   );
-
-  const course = {
-    name: "Scalable Advanced Software Solutions",
-  };
+  const course = [
+    {
+      name: "Scalable Advanced Software Solutions",
+      slug: "scalable_advanced_software_solutions",
+      description: "Scalable Software Solution",
+      level: "hard",
+      author: "user1",
+      image:
+        "https://images.unsplash.com/photo-1523275335684-37898b6c0773?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+    },
+    {
+      name: "Big Data and Infrastructure",
+      slug: "big_data_and_infrastructure",
+      description: "Big Data and Infrastructure",
+      level: "medium",
+      author: "user1",
+      image:
+        "https://images.unsplash.com/photo-1523275335684-37898b6c0773?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+    },
+    {
+      name: "Knowledge Engineering",
+      slug: "knowledge_engineering",
+      description: "Knowledge Engineering",
+      level: "hard",
+      author: "user1",
+      image:
+        "https://images.unsplash.com/photo-1523275335684-37898b6c0773?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+    },
+    {
+      name: "Data Science and Machine Learning",
+      slug: "ds_and_ml",
+      description: "Data Science and Machine Learning",
+      level: "hard",
+      author: "user1",
+      image:
+        "https://images.unsplash.com/photo-1523275335684-37898b6c0773?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+    },
+    // for deep learning
+    {
+      name: "Deep Learning",
+      slug: "deep_learning",
+      description: "Deep Learning",
+      level: "hard",
+      author: "user1",
+      image:
+        "https://images.unsplash.com/photo-1523275335684-37898b6c0773?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+    },
+  ];
 
   useEffect(() => {
     if (typeof window !== "undefined") setCompReady(true);
@@ -165,7 +215,7 @@ const Challenges = ({ slug }: { slug: string }) => {
               font.className
             )}
           >
-            {course.name}
+            {course.filter((c) => c.slug === slug)[0].name}
           </h1>
           <div className=" flex flex-col items-center justify-center  p-6 text-white">
             {compReady && (
@@ -181,8 +231,10 @@ const Challenges = ({ slug }: { slug: string }) => {
                       sec
                     </span>
                   </div>
-                  <h2 className="text-2xl font-bold mb-4">
-                    {questions[currentQuestionIndex].question}
+                  <h2 className="text-xl font-bold mb-4 overflow-x-auto">
+                    <Markdown remarkPlugins={[remarkGfm]}>
+                      {questions[currentQuestionIndex].question}
+                    </Markdown>
                   </h2>
                   <div className="space-y-3">
                     {questions[currentQuestionIndex].options.map((option) => (

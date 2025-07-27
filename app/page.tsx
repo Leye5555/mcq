@@ -8,7 +8,7 @@ import Header from "@/components/Header";
 const font = Smooch_Sans({ subsets: ["latin"] });
 
 export default function Home() {
-  const data = [
+  const data1 = [
     {
       name: "Scalable Advanced Software Solutions",
       slug: "scalable_advanced_software_solutions",
@@ -31,6 +31,28 @@ export default function Home() {
       name: "Knowledge Engineering",
       slug: "knowledge_engineering",
       description: "Knowledge Engineering",
+      level: "hard",
+      author: "user1",
+      image:
+        "https://images.unsplash.com/photo-1523275335684-37898b6c0773?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+    },
+  ];
+
+  const data2 = [
+    {
+      name: "Data Science and Machine Learning",
+      slug: "ds_and_ml",
+      description: "Data Science and Machine Learning",
+      level: "hard",
+      author: "user1",
+      image:
+        "https://images.unsplash.com/photo-1523275335684-37898b6c0773?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+    },
+    // for deep learning
+    {
+      name: "Deep Learning",
+      slug: "deep_learning",
+      description: "Deep Learning",
       level: "hard",
       author: "user1",
       image:
@@ -110,10 +132,10 @@ export default function Home() {
       <div className="max-w-[1440px] mx-auto">
         {" "}
         <Header />
-        <div className="flex gap-10 flex-wrap-reverse justify-between">
+        <div className="flex gap-10 flex-wrap justify-between">
           <div className="flex-1 max-w-[923px]">
             <h2 className="text-white font-extrabold text-md  mb-2 mx-auto">
-              Courses
+              Courses - Second Semester
             </h2>
             <div className="flex flex-wrap   mx-auto mb-10">
               <div
@@ -122,18 +144,31 @@ export default function Home() {
                   "flex w-full justify-between flex-wrap flex-1  gap-x-2 gap-y-5"
                 }
               >
-                {data.map((item) => (
+                {data2.map((item) => (
                   <React.Fragment key={item.slug}>
                     <Card {...item} />
                   </React.Fragment>
                 ))}
               </div>
             </div>
+          </div>
+          <div className="flex-1 max-w-[923px]">
             <h2 className="text-white font-extrabold text-md  mb-2 mx-auto">
-              Hall of Fame
+              Courses - First Semester
             </h2>
-            <div className="max-w-[923px] mx-auto overflow-x-hidden">
-              <Table contestants={contestants} />
+            <div className="flex flex-wrap   mx-auto mb-10">
+              <div
+                className={
+                  `${font.className} ` +
+                  "flex w-full justify-between flex-wrap flex-1  gap-x-2 gap-y-5"
+                }
+              >
+                {data1.map((item) => (
+                  <React.Fragment key={item.slug}>
+                    <Card {...item} />
+                  </React.Fragment>
+                ))}
+              </div>
             </div>
           </div>
           <div className="flex-1 max-w-[300px]">
@@ -141,6 +176,14 @@ export default function Home() {
               Your Stats
             </h2>
             <UserStats />
+          </div>
+          <div>
+            <h2 className="text-white font-extrabold text-md  mb-2 mx-auto">
+              Hall of Fame
+            </h2>
+            <div className="max-w-[923px] mx-auto overflow-x-hidden">
+              <Table contestants={contestants} />
+            </div>
           </div>
         </div>
       </div>

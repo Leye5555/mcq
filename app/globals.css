@@ -190,3 +190,13 @@ input:-webkit-autofill:active {
 .hard {
   background-color: rgb(136, 43, 0);
 }
+
+table {
+  font-size: 14px;
+  border-collapse: collapse;
+}
+table td,
+table th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}

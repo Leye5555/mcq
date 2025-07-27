@@ -16,7 +16,13 @@ const Card = (props: PageProps): JSX.Element => {
     <div className="w-full max-w-[300px] min-h-[150px] min-w-[250px] flex-1 bg-black/50 rounded-lg text-white p-4 relative overflow-hidden">
       <Link
         onClick={(e) => {
-          if (props.slug !== "scalable_advanced_software_solutions") {
+          if (
+            ![
+              "scalable_advanced_software_solutions",
+              "ds_and_ml",
+              "knowledge_engineering",
+            ].includes(props.slug)
+          ) {
             e.preventDefault();
             toast.success("Coming soon", {
               position: "top-center",
